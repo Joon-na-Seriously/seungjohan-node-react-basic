@@ -4,21 +4,22 @@ const port = 5000
 
 //body-parser 가져온다
 const bodyParser = require('body-parser');
-//User model을 가져온다
+//User model 을 가져온다
 const { User } = require("./models/User");
+
+const config = require('./config/key');
 
 //body-parser에 대한 option
 //application/x-ww-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
-//applicatio/json
+//application/json
 app.use(bodyParser.json());
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://seungjo:likelion1234@boilerplate.copia.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(config.mongoURI, {
   userNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
-    }
-).then(() => console.log('MongoDB Connected...'))
+    }).then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err))
 
 
