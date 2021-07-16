@@ -32,8 +32,3 @@ const userSchema = mongoose.Schema({
         type: Number
     } // token 사용 유효기간
 })
-
-//Schema를 Model로 감싸준다
-const User = mongoose.model('User', userSchema)
-
-module.exports = { User }
