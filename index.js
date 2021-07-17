@@ -5,7 +5,7 @@ const port = 5000
 //body-parser 가져온다
 const bodyParser = require('body-parser');
 //User model 을 가져온다
-const { User } = require("./models/User");
+const { User } = require('../models/User');
 
 const config = require('./config/key');
 
@@ -99,6 +99,19 @@ app.get('/api/users/auth', auth, (req, res) => {
     role: req.user.role,
     image: req.user.image
   })
+})
+
+app.get('/api/users/logout', auth, (res, req) => {
+
+  User.findOneAndUpdate({ _id: req.user._id} ,
+      { token: "" }
+      , (err, user) => {
+        if(err) return res.json({ success: false, err });
+        return res.status(200).send({
+          success: true
+        })
+      })
+
 })
 
 app.listen(port, () => {

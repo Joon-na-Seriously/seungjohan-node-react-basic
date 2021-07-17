@@ -111,10 +111,10 @@ userSchema.statics.findByToken = function(token, cb) {
         })
     })
 
-    // verify a token symmetric
-    jwt.verify(token, 'shhhhh', function(err, decoded) {
-      console.log(decoded.foo) // bar
-    });
+    // // verify a token symmetric
+    // jwt.verify(token, 'shhhhh', function(err, decoded) {
+    //   console.log(decoded.foo) // bar
+    // });
 
 }
 

@@ -1,4 +1,4 @@
-const { User } = require('./models/User');
+const { User } = require('../models/User');
 
 let auth = (req, res, next) => {
 
@@ -9,7 +9,7 @@ let auth = (req, res, next) => {
 
     //token을 복호화한 후 User를 찾는다.
     User.findByToken(token, (err, user) => {
-        if(err) thorow err; //단순 error가 났을 때 err가 있다고 전달
+        if(err) throw err; //단순 error가 났을 때 err가 있다고 전달
         if(!user) return res.json({ isAuth: false, error: true}) //user정보가 없다면 isAuth를 false로 하고 에러전달
 
         // token이 동일하다면
