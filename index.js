@@ -9,12 +9,15 @@ const { User } = require("./models/User");
 
 const config = require('./config/key');
 
+const cookieParser = require('cookie-parser');
+
 //body-parser에 대한 option
 //application/x-ww-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
 //application/json
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI, {
@@ -43,6 +46,37 @@ app.post('/register', (req, res) => {
     //status(200) 은 성공했다는 의미
     return res.status(200).json({
       success: true
+    })
+  })
+})
+
+app.post('/login', (req, res) => {
+
+  //요청된 이메일을 DB에서 있는지 찾는다.
+  User.findOne({email: req.body.email}, (err, userInfo) => {
+    //usermodel안에 이 이메일을 가진 user가 없다면 userInfo가 없음
+    if(!userInfo) {
+      return res.json({
+        loginSuccess: false,
+        message: "제공된 이메일에 해당하는 유저가 없습니다."
+      })
+    }
+
+    //요청된 이메일이 DB에 있다면 PW가 맞는 PW인지 확인.
+    userInfo.comparePassword(req.body.password, (err, isMatch) => {
+      if(!isMatch)
+        return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다."})
+
+      //PW까지 맞다면 Token 생성하기.
+      userInfo.generateToken((err, userInfo) => {
+        if(err) return res.status(400).send(err); //status(400)는 에러가 있다는 의미
+
+        //token을 저장한다. 어디에?? 쿠키, 로컬스터리지 등 괜찮은 곳에 저장. 여러가지 방법이 있지만 여기서는 쿠키에 저장해보자.
+        //쿠키에 저장하려면 라이브러리를 깔아야한다.
+        res.cookie("x_auth", userInfo.token)
+            .status(200)
+            .json({ loginSuccess: true, userId: userInfo._id})
+      })
     })
   })
 })
