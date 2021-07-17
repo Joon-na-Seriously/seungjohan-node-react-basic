@@ -5,7 +5,7 @@ const port = 5000
 //body-parser 가져온다
 const bodyParser = require('body-parser');
 //User model 을 가져온다
-const { User } = require('../models/User');
+const { User } = require('./models/User');
 
 const config = require('./config/key');
 
