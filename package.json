@@ -2,10 +2,10 @@
   "name": "boilder-plate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "node index.js",
-    "devstart": "nodemon index.js",
+    "start": "node server/index.js",
+    "devstart": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "seungjohan",
@@ -19,6 +19,7 @@
     "mongoose": "^5.13.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "prettier": "2.3.2"
   }
 }
