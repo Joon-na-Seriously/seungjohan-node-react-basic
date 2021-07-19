@@ -1,13 +1,18 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
+import axios from 'axios';
 
-class LandingPage extends Component {
-    render() {
-        return (
-            <div>
-                LandingPage
-            </div>
-        );
-    }
+function LandingPage() {
+
+    useEffect(() => {
+        axios.get('/api/hello')
+        .then(response => console.log(response.data))
+    }, [])
+
+    return (
+        <div>
+            LandingPage
+        </div>
+    )
 }
 
 export default LandingPage;
