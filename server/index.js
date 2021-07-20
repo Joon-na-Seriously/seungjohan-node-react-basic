@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = 6000;
 
 //body-parser 가져온다
 const bodyParser = require("body-parser");
@@ -48,9 +48,14 @@ app.post("/api/users/register", (req, res) => {
   //인스턴스를 생성하고 위의 옵션에서 받은 정보들을 데이터베이스에 넣기 위해
   const user = new User(req.body); //req.body안에 넣는다
 
+  // console.log(req.body, user)
+
   //mongodb에서 오는 Method, 위에서 받아준 userModel 정보들을 저장해줌. + callback function
   user.save((err, userInfo) => {
-    if (err) return res.json({ success: false, err }); // error가 있으면 client에게 error가 있다고 전달해줘야 with json 형식으로, 에러메시지도 함께
+    if (err) {
+      console.log(err)
+      return res.json({success: false, err}); // error가 있으면 client에게 error가 있다고 전달해줘야 with json 형식으로, 에러메시지도 함께
+    }
 
     //status(200) 은 성공했다는 의미
     return res.status(200).json({

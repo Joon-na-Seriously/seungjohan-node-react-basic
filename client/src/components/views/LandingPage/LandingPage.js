@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 //import {response} from "express";
 
 function LandingPage(props) {
 
     useEffect(() => {
-        axios.get('/api/hello')
+        Axios.get('/api/hello')
         .then(response => console.log(response.data))
     }, [])
 
     const onClickHandler = () => {
-        axios.get('/api/users/logout')
+        Axios.get('/api/users/logout')
             .then(response => {
                 if(response.data.success) {
                     props.history.push("/login")

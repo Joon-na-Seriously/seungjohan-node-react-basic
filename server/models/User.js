@@ -70,7 +70,8 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
   //plainPassword 1234567, 암호화된 비밀번호 xxxxxxxxxxxxxx 라고 한다면
   //두 개의 pw가 같은지 확인해야한다.
   bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
-    if (err) return cb(err), cb(null, isMatch);
+    if (err) return cb(err);
+      cb(null, isMatch);
   });
 };
 
