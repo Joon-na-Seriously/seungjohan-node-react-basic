@@ -1,7 +1,8 @@
 // for type
 import {
     LOGIN_USER,
-    REGISTER_USER
+    REGISTER_USER,
+    AUTH_USER
 } from '../_actions/types';
 
 export default function (state={}, action) {
@@ -10,9 +11,15 @@ export default function (state={}, action) {
         case LOGIN_USER:
             // spread operator ... => state를 그냥 그대로 가져오는 것 => 빈 상태
             return { ...state, loginSuccess: action.payload }
+            break;
 
         case REGISTER_USER:
             return { ...state, register: action.payload }
+            break;
+
+        case AUTH_USER:
+            return { ...state, userData: action.payload }
+            break;
 
         default:
             return state;

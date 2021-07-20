@@ -3,7 +3,8 @@ import Axios from 'axios';
 // For type
 import {
     LOGIN_USER,
-    REGISTER_USER
+    REGISTER_USER,
+    AUTH_USER
 } from './types';
 
 // LoginPage의 body에 email,pw를 parameter를 통해서 받는 것임.
@@ -27,6 +28,16 @@ export function registerUser(dataToSubmit) {
 
     return {
         type: REGISTER_USER,
+        payload: request
+    }
+}
+
+export function auth(dataToSubmit) {
+    const request = Axios.get('/api/users/auth')
+        .then(response => response.data)
+
+    return {
+        type: AUTH_USER,
         payload: request
     }
 }
