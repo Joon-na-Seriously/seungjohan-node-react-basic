@@ -12,13 +12,13 @@ function LandingPage(props) {
 
     const onClickHandler = () => {
         Axios.get('/api/users/logout')
-            .then(response => {
-                if(response.data.success) {
+            .then( response => {
+                console.log(response.data)
+                if( response.data.success) {
                     props.history.push("/login")
                 } else {
                     alert("Failed at logout")
                 }
-                //console.log(response.data)
          })
     }
 
